@@ -15,11 +15,6 @@
 - [Key Features](#-key-features)
 - [Architecture & Tech Stack](#-architecture--tech-stack)
 - [Prerequisites](#-prerequisites)
-- [Installation & Local Setup](#-installation--local-setup)
-- [Environment Variables](#-environment-variables)
-- [Usage Guide](#-usage-guide)
-- [Contributing](#-contributing)
-- [License](#-license)
 
 ---
 
