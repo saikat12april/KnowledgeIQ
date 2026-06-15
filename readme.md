@@ -1,68 +1,181 @@
 # 🧠 KnowledgeIQ: AI-Powered Document Vault & Query Engine
 
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![React](https://img.shields.io/badge/Frontend-React.js-blue.svg)
-![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688.svg)
-![Ollama](<https://img.shields.io/badge/AI-Ollama_(LLaMA_3)-black.svg>)
+<p align="center">
+  <img src="https://img.shields.io/badge/Frontend-React.js-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
+  <img src="https://img.shields.io/badge/Backend-FastAPI-009688?style=for-the-badge&logo=fastapi" />
+  <img src="https://img.shields.io/badge/Database-Local_Vector_DB-47A248?style=for-the-badge&logo=json" />
+  <img src="https://img.shields.io/badge/AI-Ollama%20%7C%20LLaMA3-000000?style=for-the-badge&logo=meta" />
+</p>
 
-> **KnowledgeIQ** is a highly secure, AI-driven document management platform designed for regulated environments. It leverages local Large Language Models (LLMs) to ingest, analyze, summarize, and cross-reference protocols, SOPs, and research papers without sending sensitive data to external APIs.
-
----
-
-## 📑 Table of Contents
-
-- [About the Project](#-about-the-project)
-- [Key Features](#-key-features)
-- [Architecture & Tech Stack](#-architecture--tech-stack)
-- [Prerequisites](#-prerequisites)
+<p align="center">
+  <b>Secure, On-Premise AI Document Management, Compliance Verification & Synthesis System</b>
+</p>
 
 ---
 
-## 📖 About the Project
+## 📌 Overview
 
-In highly regulated industries (like life sciences, pharma, and research), data privacy is paramount. **KnowledgeIQ** solves the problem of information silos by allowing teams to upload complex documents (PDFs, DOCX, TXT) into a secure vault. Using a local vector search engine paired with a local LLM, users can ask complex questions, compare document versions, and generate compliance health scores—all while keeping data 100% internal.
+KnowledgeIQ is a highly secure, AI-driven document management platform designed specifically for regulated environments (life sciences, pharma, enterprise research). It solves information silos by allowing teams to upload complex documents (PDFs, DOCX, TXT) into a secure vault.
+
+By utilizing local Large Language Models (LLaMA 3 via Ollama) and a custom local vector search engine, users can ask complex questions, generate compliance health scores, cross‑reference protocols, and run automated document audits — **all while keeping 100% of the data internal and offline.**
+
+---
 
 ## ✨ Key Features
 
-- 🔍 **Deep Query Engine:** Ask natural language questions and get synthesized answers with direct inline citations to your internal documents.
-- 🛡️ **Compliance Mode:** Automatically scans queries and documents for protocol violations, forbidden chemicals, or missing safety warnings (MSDS, PPE).
-- 📊 **Automated Health Scoring:** Grades every uploaded document (0-100) based on readability, completeness, data richness, and compliance terminology.
-- 📑 **Intelligent Summarizer & Comparator:** Generate executive summaries or run side-by-side analyses of two different documents.
-- ⏳ **Version Control & Diffing:** Upload different versions of the same SOP and visually track what changed via HTML diffs.
-- 📦 **Batch Exporting:** Select multiple documents and generate a single, AI-summarized PDF or Word report.
-- 🗄️ **Comprehensive Audit Trail:** Logs every search query, compliance check, upload, and export for regulatory oversight.
+### 🔍 Deep Query Engine
+
+- Real‑time streaming AI answers
+- Automatic inline citations `[Doc: "Filename"]` with exact text linking
+- Interactive query bookmarking for quick re‑runs
+
+### 🛡️ Compliance Mode
+
+- Automated scanning for protocol violations
+- Detection of forbidden chemicals / missing safety data (MSDS, PPE)
+- Visual warning alerts before AI generation
+
+### 📊 Document Health Scoring
+
+- Automated 0–100 grading system for every uploaded document
+- Analyzes readability, completeness, data richness, compliance terminology
+- AI‑generated issue narration (e.g., “Missing quantitative data points”)
+
+### 📑 Intelligent Summarizer & Comparator
+
+- Generate Executive Summaries, Bullet Points, or Action Items
+- Run side‑by‑side comparative analysis of two different documents
+- Extract tabular chemical data automatically
+
+### ⏳ Version Control & Diffing
+
+- Visual HTML diffing for comparing document versions (`SOP_v1` vs `SOP_v2`)
+- Comprehensive Audit Trail logging every search, compliance check, export
+- Activity Timeline to track document lifecycle events
+
+### 📦 Batch Exporting
+
+- Select multiple documents to generate a single AI‑summarized report
+- Export directly to PDF, DOCX, or TXT
 
 ---
 
-## 🏗️ Architecture & Tech Stack
+# 🏗️ System Architecture
 
-This project is built using a decoupled Two-Tier Architecture:
+```text
+┌──────────────────────────┐
+│       React.js UI        │
+└────────────┬─────────────┘
+             │
+             ▼
+┌──────────────────────────┐
+│      FastAPI Server      │
+└────────────┬─────────────┘
+             │
+ ┌───────────┼───────────┐
+ ▼           ▼           ▼
 
-### Frontend
-
-- **Framework:** React.js (Functional Components, Hooks)
-- **Styling:** Custom CSS with CSS Variables for Light/Dark Mode toggling
-- **Icons:** `lucide-react`
-- **HTTP Client:** `axios`
-
-### Backend
-
-- **Framework:** FastAPI (Python)
-- **AI/LLM Engine:** Ollama (running `llama3` locally)
-- **Vector Search:** Custom TF-IDF Local Vector Engine
-- **Document Processing:** `PyMuPDF` (PDFs), `python-docx` (Word), `fpdf` (PDF Generation)
-- **Storage:** Local Ephemeral/Persistent Disk (JSON file-based DB)
+ Local     Local Vector   Ollama
+ JSON DB     Engine      (LLaMA 3)
+```
 
 ---
 
-## 🛠️ Prerequisites
+## 📂 Project Structure
 
-Before you begin, ensure you have the following installed on your local machine:
+```text
+knowledge_iq_workspace/
+│
+├── backend/
+│   ├── data/
+│   │   ├── db/
+│   │   ├── papers/
+│   │   └── vectors/
+│   ├── main.py
+│   └── requirements.txt
+│
+├── frontend/
+│   ├── src/
+│   │   ├── App.jsx
+│   │   ├── App.css
+│   │   └── index.js
+│   └── package.json
+│
+├── .gitignore
+├── LICENSE
+└── README.md
+---
+## 🛠️ Tech Stack
 
-1. **Node.js** (v16.0 or higher) & **npm**
-2. **Python** (v3.9 or higher)
-3. **Ollama:** You must have [Ollama installed](https://ollama.com/) and running locally.
-   - _Once installed, pull the LLaMA 3 model by running:_
-     ```bash
-     ollama run llama3
-     ```
+| Category        | Technologies                          |
+| --------------- | ------------------------------------- |
+| Frontend        | React.js, Lucide-react                |
+| Backend         | FastAPI, Uvicorn                      |
+| Database        | Custom JSON / TF‑IDF Vectors          |
+| AI Models       | Ollama (LLaMA 3 Local)                |
+| Doc Parsing     | PyMuPDF, python-docx                  |
+| Exporting       | FPDF, python-docx                     |
+| HTTP Client     | Axios                                 |
+```
+
+---
+
+## 🔄 Workflow
+
+```text
+User Uploads Document
+ │
+ ▼
+Text Extraction & Vectorization
+ │
+ ▼
+User Submits Query
+ │
+ ▼
+Vector Engine Finds Top Excerpts
+ │
+ ▼
+Ollama Synthesizes Answer
+ │
+ ▼
+UI Displays Streaming Response + Citations
+
+## 📸 Application Modules
+
+✅ Document Vault (Upload / Manage)
+
+✅ AI Query Engine with Citations
+
+✅ Compliance Checker
+
+✅ Document Health Scoring
+
+✅ Intelligent Summarizer
+
+✅ Document Comparator (Diff View)
+
+✅ Version Control & Auditing
+
+✅ Batch Export (PDF/DOCX/TXT)
+
+✅ Audit Trail & Activity Timeline
+
+---
+
+## 👨‍💻 Developed By
+
+### Saikat Kr De
+
+B.Tech CSE Student (VIT Chennai, Class of 2028)
+
+AI • Full Stack Development • Enterprise Automation
+
+---
+
+## 📄 License
+
+Licensed under the MIT License.
+
+See `LICENSE` for more information.
+---
+```
