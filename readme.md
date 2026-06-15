@@ -104,8 +104,13 @@ knowledge_iq_workspace/
 ├── .gitignore
 ├── LICENSE
 └── README.md
+```
+
 ---
-## 🛠️ Tech Stack
+
+# 🛠️ Tech Stack
+
+```text
 
 | Category        | Technologies                          |
 | --------------- | ------------------------------------- |
@@ -139,9 +144,13 @@ Ollama Synthesizes Answer
  │
  ▼
 UI Displays Streaming Response + Citations
+```
+
+---
 
 ## 📸 Application Modules
 
+```text
 ✅ Document Vault (Upload / Manage)
 
 ✅ AI Query Engine with Citations
@@ -159,9 +168,11 @@ UI Displays Streaming Response + Citations
 ✅ Batch Export (PDF/DOCX/TXT)
 
 ✅ Audit Trail & Activity Timeline
+```
 
 ---
 
+```text
 ## 👨‍💻 Developed By
 
 ### Saikat Kr De
@@ -169,13 +180,14 @@ UI Displays Streaming Response + Citations
 B.Tech CSE Student (VIT Chennai, Class of 2028)
 
 AI • Full Stack Development • Enterprise Automation
+```
 
 ---
 
 ## 📄 License
 
+```text
 Licensed under the MIT License.
 
 See `LICENSE` for more information.
----
 ```
