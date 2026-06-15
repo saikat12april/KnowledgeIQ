@@ -172,11 +172,11 @@ UI Displays Streaming Response + Citations
 
 ---
 
-```text
 ## 👨‍💻 Developed By
 
 ### Saikat Kr De
 
+```text
 B.Tech CSE Student (VIT Chennai, Class of 2028)
 
 AI • Full Stack Development • Enterprise Automation
