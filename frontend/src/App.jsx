@@ -351,6 +351,7 @@ export default function App() {
   const [diffHtml, setDiffHtml] = useState("");
   const [showVersionModal, setShowVersionModal] = useState(false);
   const [selectedVersions, setSelectedVersions] = useState({});
+  const [isComparingVersions, setIsComparingVersions] = useState(false); // NEW STATE FOR SPINNER
 
   const [analyticsData, setAnalyticsData] = useState(null);
 
@@ -381,11 +382,9 @@ export default function App() {
   };
 
   useEffect(() => {
-    // Log view navigation dynamically
     if (view !== "query") {
       logActivity("ui_navigation", { target_view: view });
     }
-
     fetchDocuments();
     fetchBookmarks();
     fetchAnnotations();
@@ -749,9 +748,14 @@ export default function App() {
       setEntityGraph({ nodes: [], links: [] });
     }
   };
+
+  // FIXED LOADING SPINNER FOR SHOW DIFF
   const handleShowDiff = async (baseName, v1, v2) => {
     if (!v1 || !v2) return alert("Please select two versions");
     if (v1 === v2) return alert("Please select two different versions");
+
+    setIsComparingVersions(true);
+
     try {
       const r = await axios.post(`${API_URL}/compare_versions`, {
         base_name: baseName,
@@ -761,9 +765,15 @@ export default function App() {
       setDiffHtml(r.data.diff_html);
       setShowVersionModal(true);
     } catch (e) {
-      alert("Failed to generate diff.");
+      console.error("Diff Error:", e);
+      alert(
+        "Failed to generate diff. Check the browser console (F12) for the exact error.",
+      );
+    } finally {
+      setIsComparingVersions(false);
     }
   };
+
   const handleCitationClick = async (fileName) => {
     logActivity("citation_clicked", { filename: fileName });
     const doc = documents.find((d) => d.original_name === fileName);
@@ -1861,9 +1871,21 @@ export default function App() {
                         <button
                           className="btn"
                           onClick={() => handleShowDiff(base, sel.v1, sel.v2)}
-                          disabled={!sel.v1 || !sel.v2 || sel.v1 === sel.v2}
+                          disabled={
+                            !sel.v1 ||
+                            !sel.v2 ||
+                            sel.v1 === sel.v2 ||
+                            isComparingVersions
+                          }
                         >
-                          Compare Versions
+                          {isComparingVersions ? (
+                            <>
+                              <div className="spinner" />
+                              &nbsp;Comparing...
+                            </>
+                          ) : (
+                            "Compare Versions"
+                          )}
                         </button>
                       </div>
                       <div
@@ -2519,6 +2541,29 @@ export default function App() {
           )}
         </div>
       </div>
+
+      {/* ── VERSION DIFF MODAL ── */}
+      {showVersionModal && (
+        <div
+          className="modal-overlay"
+          onClick={() => setShowVersionModal(false)}
+        >
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <span>Version Diff</span>
+              <X
+                size={18}
+                style={{ cursor: "pointer" }}
+                onClick={() => setShowVersionModal(false)}
+              />
+            </div>
+            <div
+              className="modal-body"
+              dangerouslySetInnerHTML={{ __html: diffHtml }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
